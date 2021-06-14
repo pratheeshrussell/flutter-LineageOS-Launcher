@@ -13,6 +13,14 @@ The following Apps must be pre-installed
 4. Plex
 5. Crackle free movies and tv shows
 6. MX Player
-7. Nostalgia.NES Lite
+7. Nostalgia.NES Lite (some NES roms too ;) )
 8. AirScreen
 9. Android Box Remote
+10. Netflix
+
+## Debugging
+In Lineage OS  
+Settings > Developer Options > ADB over network  
+
+From your computer  
+adb connect IP:PORT

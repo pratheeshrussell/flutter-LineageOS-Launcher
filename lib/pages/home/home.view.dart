@@ -77,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
     List<Application> apps = await DeviceApps.getInstalledApplications(
        includeAppIcons: true);
        
-    List<String> _mediaApps = ["YouTube", "Prime Video","Hotstar","Plex","Crackle free movies and tv shows"];
+    List<String> _mediaApps = ["YouTube", "Prime Video","Netflix","Hotstar","Plex","Crackle free movies and tv shows"];
     List<String> _headerApps = ["MX Player", "File Explorer","Nostalgia.NES Lite"];
     List<String> _footerApps = ["AirScreen", "Android Box Remote"];
     apps.forEach((element) {
@@ -99,9 +99,9 @@ class _MyHomePageState extends State<MyHomePage> {
         }
       });
 
-      print("-------------");
-      print(element.appName);
-      print("-------------");
+      // print("-------------");
+      // print(element.appName);
+      // print("-------------");
     
     
     });
