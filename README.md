@@ -24,3 +24,8 @@ Settings > Developer Options > ADB over network
 
 From your computer  
 adb connect IP:PORT
+
+## Versions
+Tested with   
+flutter version 3.3.10   
+Lineage OS version 18.1 (Android 11)  

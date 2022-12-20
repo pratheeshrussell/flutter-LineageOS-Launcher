@@ -5,9 +5,7 @@ import 'package:flutter/material.dart';
 class MainCarouselSlider extends StatelessWidget {
   final Size size;
   final List<ApplicationWithIcon> sliderAssets;
-
-  MainCarouselSlider(this.sliderAssets,this.size);
-
+  const MainCarouselSlider(this.sliderAssets,this.size, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +19,14 @@ class MainCarouselSlider extends StatelessWidget {
         enableInfiniteScroll: true,
         reverse: false,
         autoPlay: true,
-        autoPlayInterval: Duration(seconds: 3),
-        autoPlayAnimationDuration: Duration(milliseconds: 800),
+        autoPlayInterval: const Duration(seconds: 3),
+        autoPlayAnimationDuration: const Duration(milliseconds: 800),
         autoPlayCurve: Curves.fastOutSlowIn,
         enlargeCenterPage: true,
         // onPageChanged: callbackFunction,
         scrollDirection: Axis.horizontal,
       ),
-      itemBuilder: (context, index) {
+      itemBuilder: (context, index,realIndex) {
         return Builder(
           builder: (BuildContext context) {
             return InkWell(
@@ -36,16 +34,16 @@ class MainCarouselSlider extends StatelessWidget {
                   launchApp(sliderAssets[index].packageName);
                 },
                   child: Card(              
-                  child: Container(
+                  child: SizedBox(
                     width:size.width,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(                      
-                          margin: EdgeInsets.only(bottom:20),
+                          margin: const EdgeInsets.only(bottom:20),
                           height:100,width:100,
                           child: Image.memory(sliderAssets[index].icon,fit: BoxFit.fill,)),
-                        Text(sliderAssets[index].appName,style:TextStyle(color:Colors.black,fontSize: 25,
+                        Text(sliderAssets[index].appName,style:const TextStyle(color:Colors.black,fontSize: 25,
                         fontWeight: FontWeight.bold)),
                       ],
                     ),

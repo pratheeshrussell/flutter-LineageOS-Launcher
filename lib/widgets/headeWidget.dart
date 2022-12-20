@@ -7,29 +7,27 @@ class HeaderWidget extends StatelessWidget {
   final Size size;
   final List<ApplicationWithIcon> headerApps;
 
-  HeaderWidget(this.headerApps,this.size);
+  const HeaderWidget(this.headerApps,this.size, {super.key});
 
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child:Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          leftSideWidgets(),
-          Container(
-            width:size.width * 0.33,
-            child:clockWidget()),
-          rightSideWidgets()
-        ],
-      )
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        leftSideWidgets(),
+        SizedBox(
+          width:size.width * 0.33,
+          child:clockWidget()),
+        rightSideWidgets()
+      ],
     );
   }
 
 Widget leftSideWidgets(){
   return Container(
-    margin:EdgeInsets.only(left:30),
+    margin:const EdgeInsets.only(left:30),
     width:size.width * 0.3,
     child: Row(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -39,7 +37,7 @@ Widget leftSideWidgets(){
         Expanded(child: 
         Container(
           alignment: Alignment.centerLeft,
-          child: IconButton(icon: Icon(Icons.wifi,size:35), onPressed: (){AppSettings.openWIFISettings();}))),
+          child: IconButton(icon: const Icon(Icons.wifi,size:35), onPressed: (){AppSettings.openWIFISettings();}))),
         
         getAppandBuild("MX Player"),
         getAppandBuild("File Explorer")
@@ -49,7 +47,7 @@ Widget leftSideWidgets(){
 
 Widget rightSideWidgets(){
   return Container(
-    margin:EdgeInsets.only(right:30),
+    margin:const EdgeInsets.only(right:30),
     width:size.width * 0.3,
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -62,12 +60,13 @@ Widget rightSideWidgets(){
 }
 
 Widget getAppandBuild(String name){
- ApplicationWithIcon app = getApplicationFromName(name);
+ ApplicationWithIcon? app = getApplicationFromName(name);
+
  if(app == null){
    return Container();
  }
  return  Container(
-    margin: EdgeInsets.only(left:10,right:10),
+    margin: const EdgeInsets.only(left:10,right:10),
     child:InkWell(
     onTap: (){launchApp(app.packageName);},
    child:   Image.memory(app.icon,height:35,width:35)
@@ -81,14 +80,14 @@ Widget clockWidget(){
                   areaAligment: AlignmentDirectional.center,
                   is24HourTimeFormat: false,
                   //showSecondsDigit: false,
-                  areaDecoration: BoxDecoration(
+                  areaDecoration: const BoxDecoration(
                     color: Colors.transparent,
                   ),
-                  hourMinuteDigitTextStyle: TextStyle(
+                  hourMinuteDigitTextStyle: const TextStyle(
                     color: Colors.blueGrey,
                     fontSize: 50,
                   ),
-                  amPmDigitTextStyle: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold),              
+                  amPmDigitTextStyle: const TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold),              
                 );
 }
 
@@ -96,13 +95,13 @@ void launchApp(String pkgName){
   DeviceApps.openApp(pkgName);
 }
 
-ApplicationWithIcon getApplicationFromName(String appname){
-  ApplicationWithIcon returner;
-  headerApps.forEach((element) {
+ApplicationWithIcon? getApplicationFromName(String appname){
+  ApplicationWithIcon? returner;
+  for (ApplicationWithIcon element in headerApps) {
     if(element.appName.toLowerCase().replaceAll(" ", "") == appname.toLowerCase().replaceAll(" ", "")){
-            returner = element;
-        }
-  });
+        returner = element;
+      }
+  }
   return returner;
 }
   

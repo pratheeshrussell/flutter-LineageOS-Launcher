@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutterLineageOSLauncher/widgets/carousalSlider.dart';
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +7,8 @@ import 'package:flutterLineageOSLauncher/widgets/footerWidget.dart';
 import 'package:flutterLineageOSLauncher/widgets/headeWidget.dart';
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -24,7 +28,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
     return Scaffold(
-      body:  Container(
+      body: Container(
         height:_size.height,
         child: Column(
             mainAxisSize: MainAxisSize.max,
@@ -52,13 +56,13 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget buildMediaApps(Size size){
-    if(mediaApps.length < 1){
+    if(mediaApps.isEmpty){
       return Container();
     }
 
     return Container(
       height: size.height * 0.5,width: size.width,
-      margin: EdgeInsets.only(left:20,right:20),
+      margin: const EdgeInsets.only(left:20,right:20),
       child: MainCarouselSlider(mediaApps,size)
     );
    }
@@ -74,37 +78,38 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> getApps() async {
-    List<Application> apps = await DeviceApps.getInstalledApplications(
-       includeAppIcons: true);
+    List<ApplicationWithIcon> apps = (await DeviceApps.getInstalledApplications(
+       includeAppIcons: true) as List<ApplicationWithIcon>);
        
     List<String> _mediaApps = ["YouTube", "Prime Video","Netflix","Hotstar","Plex","Crackle free movies and tv shows"];
     List<String> _headerApps = ["MX Player", "File Explorer","Nostalgia.NES Lite"];
     List<String> _footerApps = ["AirScreen", "Android Box Remote"];
-    apps.forEach((element) {
-      _mediaApps.forEach((mediaString) {
+    
+    for (ApplicationWithIcon element in apps) {
+      for (String mediaString in _mediaApps) {
         if(element.appName.toLowerCase().replaceAll(" ", "") == mediaString.toLowerCase().replaceAll(" ", "")){
             mediaApps.add(element);
         }
-      });
+      }
 
-      _headerApps.forEach((mediaString) {
+      for (String mediaString in _headerApps) {
         if(element.appName.toLowerCase().replaceAll(" ", "") == mediaString.toLowerCase().replaceAll(" ", "")){
             headerApps.add(element);
         }
-      });
+      }
 
-       _footerApps.forEach((mediaString) {
+       for (String mediaString in _footerApps) {
         if(element.appName.toLowerCase().replaceAll(" ", "") == mediaString.toLowerCase().replaceAll(" ", "")){
             footerApps.add(element);
         }
-      });
+      }
 
       // print("-------------");
       // print(element.appName);
       // print("-------------");
     
     
-    });
+    }
     setState(() {});
   }
 }
