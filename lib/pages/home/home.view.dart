@@ -79,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> getApps() async {
     List<ApplicationWithIcon> apps = (await DeviceApps.getInstalledApplications(
-       includeAppIcons: true) as List<ApplicationWithIcon>);
+       includeAppIcons: true)).toList().cast();
        
     List<String> _mediaApps = ["YouTube", "Prime Video","Netflix","Hotstar","Plex","Crackle free movies and tv shows"];
     List<String> _headerApps = ["MX Player", "File Explorer","Nostalgia.NES Lite"];
